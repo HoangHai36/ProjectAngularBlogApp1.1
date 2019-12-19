@@ -1,0 +1,45 @@
+<div class="editor-page">
+    <div class="container page">
+        <div class="row">
+
+            <div class="col-md-10 offset-md-1 col-xs-12">
+                <ul class="error-messages" *ngIf="errNewArticle">
+                    <li *ngFor="let item of errNewArticle">{{item}}</li>
+                </ul>
+                <form [formGroup]="formArticle">
+                    <fieldset>
+                        <fieldset class="form-group">
+                            <input type="text" class="form-control form-control-lg" placeholder="Article Title"
+                                formControlName="title">
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <input type="text" class="form-control" placeholder="What's this article about?"
+                                formControlName="description">
+                        </fieldset>
+                        <fieldset class="form-group">
+                                <angular-editor class="form-control" rows="8" formControlName="body" [config]="config"></angular-editor>
+
+                            <!-- <textarea class="form-control" rows="8" placeholder="Write your article (in markdown)"
+                                formControlName="body"></textarea> -->
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter tags"
+                                (keyup.enter)="pushTab($event)">
+                            <div class="tag-list">
+                                <span *ngFor="let item of tagList; let i = index"><a class="tag-pill tag-default"><span
+                                            (click)="removetab(i)"><i
+                                                class="ion-close-round"></i></span>{{item}}</a></span>
+                            </div>
+                        </fieldset>
+                        <button class="btn btn-lg pull-xs-right btn-primary" type="button" (click)="postArticle()">
+                            Publish Article
+                        </button>
+                    </fieldset>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- [disabled]="!formArticle.valid" -->

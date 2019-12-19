@@ -1,0 +1,48 @@
+<div class="home-page" *ngIf="listArticle">
+    <div class="banner" *ngIf="!isLogin">
+        <div class="container">
+            <h1 class="logo-font">conduit</h1>
+            <p>A place to share your knowledge.</p>
+        </div>
+    </div>
+    <div class="container page">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="feed-toggle">
+                    <ul class="nav nav-pills outline-active">
+                        <li class="nav-item">
+                            <a class="nav-link" *ngIf="isLogin" [ngClass]="tab == 1 ? 'active' : ''"
+                                (click)="clickYourFeed()">Your Feed</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [ngClass]="tab == 2 ? 'active' : ''" (click)="clickGlobalFeed()">Global
+                                Feed</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" *ngIf="toggleTab" [ngClass]="tab == 3 ? 'active' : ''">#
+                                {{namePopularTag}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="article-preview" *ngIf="loadingArticle">Loading article...</div>
+                <div *ngIf="!loadingArticle">
+                    <app-list-article [listArticle]='listArticle'  *ngIf="listArticle">
+                    </app-list-article>
+                    <div class="article-preview" *ngIf="listArticle?.length === 0">No articles are here... yet.</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="sidebar">
+                    <p>Popular Tags</p>
+                    <div class="tag-list">
+                        <a class="tag-pill tag-default" *ngFor="let tag of listTabs"
+                            (click)="clickPopularTags(tag)">{{tag}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="listArticle?.length !== 0">
+            <app-pagination [pager]="pager" (clickPage)="setPage($event)"></app-pagination>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="auth-page">
+    <div class="container page">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 col-xs-12">
+                <h1 class="text-xs-center">Sign up</h1>
+                <p class="text-xs-center">
+                    <a [routerLink]="['/login']">Have an account?</a>
+                </p>
+                <ul class="error-messages" *ngIf="errregister">
+                    <li>{{errregister[0]}}</li>
+                </ul>
+                <form (ngSubmit)="singup()" [formGroup]="formUser">
+                    <fieldset class="form-group">
+                        <input class="form-control form-control-lg" type="text" placeholder="Your Name"
+                            formControlName="username">
+                    </fieldset>
+                    <ul class="error-messages"
+                        *ngIf="formUser.controls.username?.errors?.required && formUser.controls.username?.touched">
+                        <li>username is required</li>
+                    </ul>
+                    <fieldset class="form-group">
+                        <input class="form-control form-control-lg" type="email" placeholder="Email"
+                            formControlName="email">
+                    </fieldset>
+                    <ul class="error-messages"
+                        *ngIf="formUser.controls.email?.errors?.required && formUser.controls.email?.touched">
+                        <li>Email is required</li>
+                    </ul>
+                    <ul class="error-messages"
+                        *ngIf="formUser.controls.email?.errors?.pattern && formUser.controls.email?.touched">
+                        <li>Not type email</li>
+                    </ul>
+                    <fieldset class="form-group">
+                        <input class="form-control form-control-lg" type="password" placeholder="Password"
+                            formControlName="password">
+                    </fieldset>
+                    <ul class="error-messages"
+                        *ngIf="formUser.controls.password?.errors?.required && formUser.controls.password?.touched">
+                        <li>Password is required</li>
+                    </ul>
+                    <ul class="error-messages"
+                        *ngIf="formUser.controls.password?.errors?.minlength && formUser.controls.password?.touched">
+                        <li>Password min lenght 7</li>
+                    </ul>
+                    <button class="btn btn-lg btn-primary pull-xs-right" [disabled]="formUser.invalid">
+                        Sign up
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

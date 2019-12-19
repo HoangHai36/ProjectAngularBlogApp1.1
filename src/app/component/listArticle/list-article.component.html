@@ -1,0 +1,19 @@
+<div class="article-preview" *ngFor="let item of listArticle; let i = index">
+    <div class="article-meta">
+        <a><img [src]="item.author.image ? item.author.image : imgNull" /></a>
+        <div class="info">
+            <a [routerLink]="['/profile/',item?.author?.username]" class="author">{{item?.author?.username}}</a>
+            <span class="date">{{item?.updatedAt | date:'fullDate'}}</span>
+        </div>
+        <app-favorite-button [article]="item" (changeFavorite)="emitChangeFavorite($event, i)" class="pull-xs-right"></app-favorite-button>
+    </div>
+    <a [routerLink]="['/article/',item.slug]" class="preview-link">
+        <h1>{{item?.title}}</h1>
+        <p>{{item?.description}}</p>
+        <span>Read more...</span>
+        <ul class="tag-list">
+            <li class="tag-default text-dark tag-pill tag-outline ng-binding ng-scope"
+                *ngFor="let item of item.tagList">{{item}}</li>
+        </ul>
+    </a>
+</div>

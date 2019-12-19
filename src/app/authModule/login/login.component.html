@@ -1,0 +1,42 @@
+<div class="auth-page">
+    <div class="container page">
+        <div class="row">
+
+            <div class="col-md-6 offset-md-3 col-xs-12">
+                <h1 class="text-xs-center">Sign in</h1>
+                <p class="text-xs-center">
+                    <a [routerLink]="['/register']">Need an account?</a>
+                </p>
+                <ul class="error-messages" *ngIf="errorResponse">
+                    <li>{{ errorResponse }}</li>
+                </ul>
+                <form [formGroup]="userForm" (ngSubmit)="login()">
+                    <fieldset class="form-group">
+                        <input class="form-control form-control-lg" type="email" placeholder="Email"
+                            formControlName="email">
+                    </fieldset>
+                    <ul class="error-messages"
+                        *ngIf="userForm.controls.email?.errors?.required && userForm.controls.email?.touched">
+                        <li>Email is required</li>
+                    </ul>
+                    <ul class="error-messages"
+                        *ngIf="userForm.controls.email?.errors?.pattern && userForm.controls.email?.touched">
+                        <li>Not type email</li>
+                    </ul>
+                    <fieldset class="form-group">
+                        <input class="form-control form-control-lg" type="password" placeholder="Password"
+                            formControlName="password">
+                    </fieldset>
+                    <ul class="error-messages"
+                        *ngIf="userForm.controls.password?.errors?.required && userForm.controls.password?.touched">
+                        <li>Password is required</li>
+                    </ul>
+                    <button class="btn btn-lg btn-primary pull-xs-right" [disabled]="userForm.invalid">
+                        Sign in
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

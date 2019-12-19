@@ -1,0 +1,53 @@
+<div class="profile-page">
+    <div class="user-info">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-md-10 offset-md-1">
+                    <img [src]="dataProfile?.image ? dataProfile.image : imgNull" class="user-img" />
+                    <h4>{{dataProfile?.username}}</h4>
+                    <p>
+                        {{dataProfile?.bio}}
+                    </p>
+                    <app-following-button *ngIf="!check" [dataProfile]="dataProfile"
+                        (changeFollow)="onChangeFollow($event)"></app-following-button>
+                    <button class="btn btn-sm btn-outline-secondary action-btn" *ngIf="check"
+                        routerLink="/profile/setting" routerLinkActive="router-link-active">
+                        <i class="ion-gear-a"></i>
+                        &nbsp;
+                        Edit Profile Settings
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-md-10 offset-md-1">
+                <div class="articles-toggle">
+                    <ul class="nav nav-pills outline-active">
+                        <li class="nav-item" (click)="clickMyArticle()">
+                            <a class="nav-link" [ngClass]="tab == 1 ? 'active' : ''">My Articles</a>
+                        </li>
+                        <li class="nav-item" (click)="clickFavoritedArticle()">
+                            <a class="nav-link" [ngClass]="tab == 2 ? 'active' : ''">Favorited Articles</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="article-preview" *ngIf="loadingArticle">Loading article...</div>
+                <div *ngIf="!loadingArticle">
+                    <app-list-article [listArticle]='listArticle' *ngIf="listArticle" [tab]="tab" (unFavorite)="deleteArticleFavorite()">
+                    </app-list-article>
+                    <div class="article-preview" *ngIf="listArticle?.length === 0">No articles are here... yet.</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-10 offset-md-1">
+                <app-pagination [pager]="pager" (clickPage)="setPage($event)" *ngIf="!loadingArticle"></app-pagination>
+            </div>
+        </div>
+
+    </div>
+</div>

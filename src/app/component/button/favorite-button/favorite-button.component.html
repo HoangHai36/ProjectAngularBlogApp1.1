@@ -1,0 +1,4 @@
+<button class="btn btn-sm" [ngClass]="article.favorited  ? 'btn-primary': 'btn-outline-primary'"
+    (click)="onChangeFavorite()">
+    <i class="ion-heart"></i> {{ text ? text : ''}} {{article.favoritesCount}}
+</button>

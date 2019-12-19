@@ -1,0 +1,77 @@
+<div class="article-page" *ngIf="article">
+    <div class="banner">
+        <div class="container">
+            <h1>{{article?.title}}</h1>
+            <div class="article-meta">
+                <a><img [src]="article?.author.image" /></a>
+                <div class="info">
+                    <a *ngIf="article?.author.username" [routerLink]="['/profile/',article?.author.username]"
+                        class="author">{{article?.author.username}}</a>
+                    <span class="date">{{article?.createdAt | date:'fullDate'}}</span>
+                </div>
+                <app-following-button *ngIf="!check" [dataProfile]="article?.author"
+                    (changeFollow)="onChangeFollow($event)"></app-following-button>
+                &nbsp;
+                <app-favorite-button *ngIf="!check" text="Favorite Article" [article]="article"
+                    (changeFavorite)="emitChangeFavorite($event)">
+                </app-favorite-button>
+                <button class="btn btn-sm btn-outline-secondary" *ngIf="check"
+                    [routerLink]="['/article/editor/',article?.slug]">
+                    <i class="ion-edit"></i>
+                    &nbsp;
+                    Edit Article
+                </button>
+                &nbsp;&nbsp;
+                <button class="btn btn-sm btn-outline-danger" *ngIf="check" (click)="deleteArticle()">
+                    <i class="ion-trash-a"></i>
+                    &nbsp;
+                    Delete Article
+                </button>
+
+            </div>
+        </div>
+    </div>
+    <div class="container page">
+        <div class="row article-content">
+            <div class="col-md-12">
+                <div id="bodyContent" [innerHTML]="article?.body">
+                </div>
+                <ul class="tag-list">
+                    <li class="tag-default text-dark tag-pill tag-outline ng-binding ng-scope"
+                        *ngFor="let item of article?.tagList">{{item}}</li>
+                </ul>
+            </div>
+        </div>
+        <hr />
+        <div class="article-actions">
+            <div class="article-meta">
+                <a href="profile.html"><img [src]="article?.author.image ? article?.author.image : img" /></a>
+                <div class="info">
+                    <a class="author" *ngIf="article?.author.username"
+                        [routerLink]="['/profile/',article?.author.username]">{{article?.author.username}}</a>
+                    <span class="date">{{article?.createdAt | date:'fullDate'}}</span>
+                </div>
+
+                <app-following-button *ngIf="!check" [dataProfile]="article?.author"
+                    (changeFollow)="onChangeFollow($event)"></app-following-button>
+                &nbsp;
+                <app-favorite-button *ngIf="!check" text="Favorite Article" [article]="article"
+                    (changeFavorite)="emitChangeFavorite($event)">
+                </app-favorite-button>
+                <button class="btn btn-sm btn-outline-secondary" *ngIf="check"
+                    [routerLink]="['/article/editor/',article?.slug]">
+                    <i class="ion-edit"></i>
+                    &nbsp;
+                    Edit Article
+                </button>
+                &nbsp;&nbsp;
+                <button class="btn btn-sm btn-outline-danger" *ngIf="check" (click)="deleteArticle()">
+                    <i class="ion-trash-a"></i>
+                    &nbsp;
+                    Delete Article
+                </button>
+            </div>
+        </div>
+        <app-comment-article></app-comment-article>
+    </div>
+</div>
